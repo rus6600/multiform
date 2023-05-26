@@ -1,9 +1,14 @@
+import {Font, Input} from "./components/ui";
+import {ThemeProvider} from "styled-components";
+import {theme} from "./config";
+
 function App() {
 
   return (
-    <>
-        <p>GO GO GO</p>
-    </>
+    <ThemeProvider theme={theme} >
+        <Font/>
+        <Input/>
+    </ThemeProvider>
   )
 }
 
