@@ -1,6 +1,6 @@
 import { ThemeType } from '../components/interfaces';
 
-export const theme = {
+export const theme: ThemeType = {
   colors: {
     marineBlue: 'hsl(213, 96%, 18%)',
     purplishBlue: 'hsl(243, 100%, 62%)',

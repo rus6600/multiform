@@ -38,6 +38,7 @@ export const DefaultStyles = createGlobalStyle`
     font-family: UbuntuRegular, sans-serif;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+    background-color: #EEF5FF;
   }
 
   a:not([class]) {
