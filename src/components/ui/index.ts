@@ -1,2 +1,2 @@
-export * from './Input.tsx'
-export * from './Fonts.ts'
+export * from './Input.tsx';
+export * from './DefaultStyles.ts';
