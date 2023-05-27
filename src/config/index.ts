@@ -1,4 +1,4 @@
-import { ThemeType } from '../components/interfaces';
+import { ThemeType } from '../interfaces';
 
 export const theme: ThemeType = {
   colors: {
