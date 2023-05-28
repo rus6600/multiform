@@ -1,12 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import { FormContext } from '../provider/context.ts';
 import { NavBar } from './NavBar.tsx';
 import { Pages } from '../pages';
 
 export const MultiForm: React.FC = () => {
-  const test = useContext(FormContext);
-  console.log(test);
   return (
     <Wrapper>
       <NavBar />

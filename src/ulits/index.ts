@@ -15,3 +15,13 @@ export const usePageSelect = (): React.FC => {
   if (FormPageEnum.summary === activePage) return PageSummary;
   return PageYourInfo;
 };
+
+type Entries<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
+
+export const getEntries = <T extends Record<any, any>>(obj: T) => Object.entries(obj) as Entries<T>;
+
+export const isInArray = <T extends U, U>(arr: ReadonlyArray<T>, el: U): el is T => {
+  return arr.includes(el as T);
+};

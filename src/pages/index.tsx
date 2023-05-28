@@ -9,7 +9,7 @@ export const Pages: React.FC = () => {
 
 const PageWrapper = styled('div')`
   ${({ theme }) => css`
-    width: 50%;
+    width: 100%;
     background-color: ${theme.colors.white};
     border-radius: 1rem;
   `}
