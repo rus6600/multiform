@@ -1,16 +1,24 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, SetStateAction } from 'react';
 import styled, { css } from 'styled-components';
 
-export const Switch: React.FC = () => {
-  const [checked, setChecked] = useState(false);
+type SwitchProps = {
+  on: string;
+  off: string;
+  setChecked: React.Dispatch<SetStateAction<any>>;
+};
 
+export const Switch: React.FC<SwitchProps> = ({ on, off, setChecked }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setChecked(e.target.checked);
+    if (!e.target.checked) {
+      setChecked(on);
+    } else {
+      setChecked(off);
+    }
   };
 
   return (
     <Label>
-      <Input checked={checked} type="checkbox" onChange={handleChange} />
+      <Input type="checkbox" onChange={handleChange} />
       <StyledSwitch />
     </Label>
   );
@@ -28,7 +36,7 @@ const StyledSwitch = styled('div')`
     position: relative;
     width: 60px;
     height: 28px;
-    background: ${theme.colors.lightGray};
+    background: ${theme.colors.marineBlue};
     border-radius: 32px;
     padding: 4px;
     transition: 300ms all;

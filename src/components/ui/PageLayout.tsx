@@ -17,10 +17,11 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ title, text, children })
     </Wrapper>
   );
 };
-export const Wrapper = styled('div')`
+const Wrapper = styled('div')`
   display: flex;
   padding: 1rem 3rem;
   height: 100%;
+  gap: 1rem;
   flex-direction: column;
 `;
 
