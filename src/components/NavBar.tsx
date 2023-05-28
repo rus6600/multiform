@@ -1,27 +1,23 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+
 import SVG from '../assets/images/bg-sidebar-desktop.svg';
+import { FormContext } from '../provider/context.ts';
+import { pagesEnum } from '../interfaces/providerinterface.ts';
 
 export const NavBar: React.FC = () => {
+  const { changePage } = React.useContext(FormContext);
+
+  const steps: Array<pagesEnum> = ['YOUR INFO', 'SELECT PLAN', 'ADD ONS', 'SUMMARY'];
+
   return (
     <Wrapper>
       <List>
-        <ListItem>
-          <p>STEP 1</p>
-          <p>YOUR INFO</p>
-        </ListItem>
-        <ListItem>
-          <p>STEP 2 </p>
-          <p>SELECT PLAN</p>
-        </ListItem>
-        <ListItem>
-          <p>STEP 3</p>
-          <p>ADD-ONS</p>
-        </ListItem>
-        <ListItem>
-          <p>STEP 4</p>
-          <p>SUMMARY</p>
-        </ListItem>
+        {steps.map((step) => (
+          <ListItem onClick={() => changePage(step)} key={step}>
+            {step}
+          </ListItem>
+        ))}
       </List>
     </Wrapper>
   );
@@ -37,44 +33,51 @@ const Wrapper = styled('div')`
 const List = styled('ul')`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   counter-reset: list;
 `;
 
 const ListItem = styled('li')`
   ${({ theme }) => css`
     position: relative;
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
     color: ${theme.colors.white};
     list-style: none;
+    font-weight: 600;
 
-    & > *:first-child {
-      font-size: 14px;
-      font-weight: 100;
-      color: ${theme.colors.lightGray};
-    }
-
-    & > *:last-child {
-      letter-spacing: 2px;
-      font-weight: 600;
+    &:hover {
+      cursor: pointer;
     }
 
     &:before {
       display: flex;
-      height: 30px;
-      width: 30px;
       position: absolute;
-      left: -40px;
-      top: 10px;
+      padding: 5px 10px;
+      left: -50px;
+      top: -18px;
       content: counter(list);
       align-items: center;
       justify-content: center;
       counter-increment: list;
-      text-align: center;
       color: ${theme.colors.white};
       border: 1px solid ${theme.colors.white};
       border-radius: 50%;
+    }
+
+    &:after {
+      display: flex;
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 12px;
+      font-weight: 100;
+      color: ${theme.colors.lightGray};
+      content: 'STEP ' counter(list);
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1px;
+      text-align: center;
     }
 
     &:hover::before {

@@ -1,8 +1,5 @@
 import React from 'react';
-import { BasePageProps } from '../interfaces';
 
-interface PageYourInfoProps extends BasePageProps {}
-
-export const PageYourInfo: React.FC<PageYourInfoProps> = ({ children }) => {
+export const PageYourInfo: React.FC = () => {
   return <div>PageYourInfo</div>;
 };

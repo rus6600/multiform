@@ -1,23 +1,10 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import styled, { css } from 'styled-components';
 
-import { BasePageProps } from '../interfaces';
-import { PageAddOns } from './PageAddOns.tsx';
-import { PageSelectPlan } from './PageSelectPlan.tsx';
-import { PageYourInfo } from './PageYourInfo.tsx';
-import { PageSummary } from './PageSummary.tsx';
+import { usePageSelect } from '../ulits';
 
-interface PagesProps extends BasePageProps {}
-
-export const Pages: React.FC<BasePageProps> = ({ children }) => {
-  return (
-    <PageWrapper>
-      <PageYourInfo />
-      <PageSelectPlan />
-      <PageAddOns />
-      <PageSummary />
-    </PageWrapper>
-  );
+export const Pages: React.FC = () => {
+  return <PageWrapper>{createElement(usePageSelect())}</PageWrapper>;
 };
 
 const PageWrapper = styled('div')`

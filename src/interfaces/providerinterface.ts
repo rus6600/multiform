@@ -1,9 +1,9 @@
 import { FormActions } from '../provider/actions.ts';
 
 export const FormPageEnum = {
-  yourInfo: 'YOUR_INFO',
-  selectPlan: 'SELECT_PLAN',
-  addOns: 'ADD_ONS',
+  yourInfo: 'YOUR INFO',
+  selectPlan: 'SELECT PLAN',
+  addOns: 'ADD ONS',
   summary: 'SUMMARY',
 } as const;
 
