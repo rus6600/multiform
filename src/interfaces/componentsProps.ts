@@ -13,3 +13,5 @@ export const inputEnum: Record<inputsType, inputsType> = {
 } as const;
 
 export type inputFieldsType = (typeof inputEnum)[keyof typeof inputEnum];
+
+export type FormDataType = Record<inputFieldsType, string>;

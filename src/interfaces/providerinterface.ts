@@ -1,4 +1,5 @@
 import { FormActions } from '../provider/actions.ts';
+import { FormDataType } from './componentsProps.ts';
 
 export const FormPageEnum = {
   yourInfo: 'YOUR INFO',
@@ -11,10 +12,12 @@ export type pagesEnum = (typeof FormPageEnum)[keyof typeof FormPageEnum];
 
 export type FormStateType = {
   activePage: pagesEnum;
+  formData?: FormDataType;
 };
 
 export type MapPayload = {
   [FormActions.changePage]: pagesEnum;
+  [FormActions.setFormData]: FormDataType;
 };
 
 export type ActionMap<M extends Record<(typeof FormActions)[keyof typeof FormActions], MapPayload[keyof MapPayload]>> =
@@ -34,4 +37,5 @@ export type FilterActions = ActionMap<MapPayload>[keyof ActionMap<MapPayload>];
 export type FormContextType = {
   formState: FormStateType;
   changePage: (page: pagesEnum) => void;
+  setFormData: (formData: FormDataType) => void;
 };

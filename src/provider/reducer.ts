@@ -12,7 +12,11 @@ export const FormReducer = (FormState: FormStateType, action: FilterActions): Fo
         ...FormState,
         activePage: action.payload,
       };
-
+    case FormActions.setFormData:
+      return {
+        ...FormState,
+        formData: action.payload,
+      };
     default:
       return FormState;
   }

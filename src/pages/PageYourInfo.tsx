@@ -2,15 +2,15 @@ import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Button, Input } from '../components/ui';
-import { inputEnum, inputFieldsType, inputsType } from '../interfaces';
+import { FormDataType, inputEnum, inputFieldsType, inputsType } from '../interfaces';
 import { getEntries, isInArray } from '../ulits';
 import { FormContext } from '../provider/context.ts';
 import { FormPageEnum } from '../interfaces/providerinterface.ts';
 
 export const PageYourInfo: React.FC = () => {
-  const { changePage } = useContext(FormContext);
+  const { changePage, setFormData, formState } = useContext(FormContext);
 
-  const [formData, setFormData] = useState<Record<inputFieldsType, string>>({
+  const [formData, addFormData] = useState<FormDataType>({
     name: '',
     email: '',
     number: '',
@@ -20,7 +20,7 @@ export const PageYourInfo: React.FC = () => {
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const { name, email, number } = formData;
-    if (!name || !email || !number) {
+    if (!formState.formData && (!name || !email || !number)) {
       setErrors(
         getEntries(formData).reduce((previousValue, [name, value]) => {
           if (!value) return [...previousValue, name];
@@ -30,13 +30,14 @@ export const PageYourInfo: React.FC = () => {
       return;
     } else {
       setErrors([]);
+      !formState.formData && setFormData(formData);
       changePage(FormPageEnum.selectPlan);
     }
   };
 
   const inputHandler = (inputData: { type: (typeof inputEnum)[keyof typeof inputEnum]; value: string }) => {
     const { type, value } = inputData;
-    setFormData((prevState) => {
+    addFormData((prevState) => {
       return {
         ...prevState,
         ...{ [type]: value },
@@ -51,8 +52,9 @@ export const PageYourInfo: React.FC = () => {
       <Form onSubmit={submitHandler}>
         {(Object.keys(inputEnum) as Array<inputsType>).map((type) => (
           <Input
+            key={type}
             name={type}
-            value={formData[type]}
+            value={(formState.formData && formState.formData[type]) || formData[type]}
             placeholder={`enter your ${type}`}
             error={isInArray(errors, inputEnum[type])}
             onChange={(e) => inputHandler({ type, value: e.target.value })}
