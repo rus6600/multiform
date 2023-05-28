@@ -33,3 +33,5 @@ export type PlanDataType = {
   timePlan: timePlan;
   plan: plans;
 };
+
+export type addOnsType = Array<{ name: string; text: string; monthly: number; yearly: number }>;

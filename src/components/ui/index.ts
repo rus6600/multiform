@@ -3,3 +3,4 @@ export * from './DefaultStyles.ts';
 export * from './Button.tsx';
 export * from './Switch.tsx';
 export * from './PageLayout.tsx';
+export * from './CheckBox.tsx';

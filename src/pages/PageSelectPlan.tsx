@@ -71,7 +71,7 @@ export const PageSelectPlan: React.FC = () => {
         <SwitchLabel selected={false}>Yearly</SwitchLabel>
       </SwitchWrapper>
       <ButtonWrapper>
-        <Button text={'Next Step'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)}></Button>
+        <Button text={'Go back'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)}></Button>
 
         <Button text={'Next Step'} onClick={handleClick}></Button>
       </ButtonWrapper>
