@@ -9,7 +9,7 @@ import { PageSummary } from './PageSummary.tsx';
 
 interface PagesProps extends BasePageProps {}
 
-export const Pages: React.FC<PagesProps> = ({ children }) => {
+export const Pages: React.FC<BasePageProps> = ({ children }) => {
   return (
     <PageWrapper>
       <PageYourInfo />
@@ -25,6 +25,5 @@ const PageWrapper = styled('div')`
     width: 50%;
     background-color: ${theme.colors.white};
     border-radius: 1rem;
-    margin: auto;
   `}
 `;

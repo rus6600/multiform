@@ -9,10 +9,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider>
-        <Container>
-          <DefaultStyles />
-          <MultiForm />
-        </Container>
+        <DefaultStyles />
+        <MultiForm />
       </Provider>
     </ThemeProvider>
   );
