@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { Button, Input } from '../components/ui';
+import { Button, Input, PageLayout } from '../components/ui';
 import { FormDataType, inputEnum, inputFieldsType, inputsType } from '../interfaces';
 import { getEntries, isInArray } from '../ulits';
 import { FormContext } from '../provider/context.ts';
@@ -46,9 +46,7 @@ export const PageYourInfo: React.FC = () => {
   };
 
   return (
-    <Wrapper>
-      <Title>Personal info</Title>
-      <Text>Please provide your name, email address, and phone number</Text>
+    <PageLayout title="Personal info" text="Please provide your name, email address, and phone number">
       <Form onSubmit={submitHandler}>
         {(Object.keys(inputEnum) as Array<inputsType>).map((type) => (
           <Input
@@ -62,29 +60,9 @@ export const PageYourInfo: React.FC = () => {
         ))}
         <Button text={'Next Step'} type="submit" />
       </Form>
-    </Wrapper>
+    </PageLayout>
   );
 };
-
-const Wrapper = styled('div')`
-  display: flex;
-  padding: 1rem 3rem;
-  height: 100%;
-  flex-direction: column;
-`;
-
-const Title = styled('h1')`
-  ${({ theme }) => css`
-    font-weight: 600;
-    color: ${theme.colors.marineBlue};
-  `}
-`;
-
-const Text = styled('p')`
-  ${({ theme }) => css`
-    color: ${theme.colors.coolGray};
-  `}
-`;
 
 const Form = styled('form')`
   display: flex;
