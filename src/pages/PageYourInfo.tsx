@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { Input } from '../components/ui';
+
+import { Button, Input } from '../components/ui';
 import { inputEnum, inputFieldsType, inputsType } from '../interfaces';
 import { getEntries, isInArray } from '../ulits';
+import { FormContext } from '../provider/context.ts';
+import { FormPageEnum } from '../interfaces/providerinterface.ts';
 
 export const PageYourInfo: React.FC = () => {
+  const { changePage } = useContext(FormContext);
+
   const [formData, setFormData] = useState<Record<inputFieldsType, string>>({
     name: '',
     email: '',
@@ -23,8 +28,10 @@ export const PageYourInfo: React.FC = () => {
         }, [] as Array<inputFieldsType>),
       );
       return;
+    } else {
+      setErrors([]);
+      changePage(FormPageEnum.selectPlan);
     }
-    setErrors([]);
   };
 
   const inputHandler = (inputData: { type: (typeof inputEnum)[keyof typeof inputEnum]; value: string }) => {
@@ -51,7 +58,7 @@ export const PageYourInfo: React.FC = () => {
             onChange={(e) => inputHandler({ type, value: e.target.value })}
           />
         ))}
-        <button type="submit"> submit</button>
+        <Button text={'Next Step'} type="submit" />
       </Form>
     </Wrapper>
   );
@@ -59,7 +66,8 @@ export const PageYourInfo: React.FC = () => {
 
 const Wrapper = styled('div')`
   display: flex;
-
+  padding: 1rem 3rem;
+  height: 100%;
   flex-direction: column;
 `;
 
@@ -78,8 +86,16 @@ const Text = styled('p')`
 
 const Form = styled('form')`
   display: flex;
+  flex-grow: 1;
+  margin-top: 2rem;
+  justify-content: space-between;
   flex-direction: column;
   gap: 1rem;
+
+  & > *:last-child {
+    margin-top: auto;
+    margin-left: auto;
+  }
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

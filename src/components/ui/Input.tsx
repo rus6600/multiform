@@ -21,7 +21,7 @@ const StyledInput = styled('input')<{ error: boolean }>`
   ${({ theme, error }) => css`
     padding: 1rem;
     position: relative;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid ${theme.colors.lightGray};
     color: ${theme.colors.marineBlue};
     font-weight: 600;
@@ -65,6 +65,7 @@ const Label = styled('label')`
     display: flex;
     flex-direction: column;
     font-weight: 500;
+    gap: 0.5rem;
     color: ${theme.colors.marineBlue};
 
     & p {
