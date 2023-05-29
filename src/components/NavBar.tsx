@@ -33,11 +33,12 @@ const Wrapper = styled('div')`
   background-image: url(${DESKTOP});
   background-repeat: no-repeat;
   background-size: cover;
-
+  border-radius: 1rem;
   @media (max-width: 600px) {
     padding: 0;
-    justify-content: center;
+    border-radius: 0;
     width: 100%;
+    justify-content: center;
     background-size: cover;
     background-image: url(${MOBILE});
   }

@@ -35,11 +35,11 @@ const Wrapper = styled('div')`
     background-color: transparent;
 
     & > *:nth-child(1) {
-      grid-area: 1/1/3/2;
+      grid-area: 1/1/5/2;
     }
 
     & > *:nth-child(2) {
-      grid-area: 2/1/5/2;
+      grid-area: 3/1/9/2;
     }
   }
 `;

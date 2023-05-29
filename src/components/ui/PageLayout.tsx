@@ -29,6 +29,7 @@ const Wrapper = styled('div')`
 
   @media (max-width: 600px) {
     padding: 1rem;
+    justify-content: space-between;
   }
 `;
 
@@ -41,6 +42,7 @@ const Background = styled('div')`
     border-radius: 1rem;
     @media (max-width: 600px) {
       padding: 2rem;
+      height: 550px;
     }
   `}
 `;

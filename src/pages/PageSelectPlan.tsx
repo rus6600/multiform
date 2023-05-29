@@ -80,9 +80,9 @@ const Cards = styled('div')`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
-
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
+    margin-bottom: 0.5rem;
   }
 `;
 

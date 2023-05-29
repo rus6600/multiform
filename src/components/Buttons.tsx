@@ -83,7 +83,10 @@ export const Buttons: React.FC = () => {
       {formState.activePage !== FormPageEnum.yourInfo && (
         <Button text={'Go Back'} variant={'tertiary'} onClick={moveBackwards}></Button>
       )}
-      <Button text="Next Step" onClick={moveForward}></Button>
+      <Button
+        text="Next Step"
+        onClick={moveForward}
+        variant={formState.activePage === FormPageEnum.summary ? 'secondary' : 'primary'}></Button>
     </Wrapper>
   );
 };
@@ -102,6 +105,7 @@ const Wrapper = styled('div')`
     }
 
     @media (max-width: 600px) {
+      margin-top: 0;
       box-shadow: 0 4px 24px rgba(63, 69, 80, 0.12);
     }
   `}
