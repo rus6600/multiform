@@ -8,8 +8,8 @@ type CheckBoxProps = {
 export const Checkbox: React.FC<CheckBoxProps> = ({ checked }) => {
   return (
     <CheckboxContainer>
-      <HiddenCheckbox readOnly checked={checked} />
-      <StyledCheckbox checked={checked}>
+      <HiddenCheckbox readOnly checked={checked || false} />
+      <StyledCheckbox checked={checked || false}>
         <Icon viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
         </Icon>

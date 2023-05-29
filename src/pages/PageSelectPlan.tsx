@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { FormContext } from '../provider/context.ts';
 import { Button, ButtonWrapper, PageLayout, Switch } from '../components/ui';
-import { FormPageEnum, PlanDataType, plansType, timePlanEnum } from '../interfaces';
+import { FormPageEnum, PlanDataType, plansEnum, plansType, timePlanEnum } from '../interfaces';
 import Arcade from '../assets/images/icon-arcade.svg';
 import Advanced from '../assets/images/icon-advanced.svg';
 import Pro from '../assets/images/icon-pro.svg';
@@ -18,19 +18,19 @@ export const PageSelectPlan: React.FC = () => {
   const [error, setError] = useState<boolean>(false);
   const plans: Array<plansType> = [
     {
-      name: 'arcade',
+      name: plansEnum.arcade,
       monthly: 9,
       yearly: 90,
       logo: Arcade,
     },
     {
-      name: 'advanced',
+      name: plansEnum.advanced,
       monthly: 12,
       yearly: 120,
       logo: Advanced,
     },
     {
-      name: 'pro',
+      name: plansEnum.pro,
       monthly: 15,
       yearly: 150,
       logo: Pro,
@@ -50,7 +50,6 @@ export const PageSelectPlan: React.FC = () => {
   };
   const handleClick = () => {
     if (!formState.planData && (!data.timePlan || !data.plan)) {
-      alert('burr');
       setError(true);
       return;
     } else {
@@ -155,7 +154,7 @@ const Logo = styled('img')`
   aspect-ratio: 1;
 `;
 
-const AlertText = styled('h3')`
+export const AlertText = styled('h3')`
   ${({ theme }) => css`
     color: ${theme.colors.strawberryRed};
   `}

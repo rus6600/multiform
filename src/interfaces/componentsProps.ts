@@ -20,6 +20,12 @@ export type FormDataType = Record<inputFieldsType, string>;
 
 export type plans = 'arcade' | 'advanced' | 'pro';
 
+export const plansEnum: Record<plans, plans> = {
+  arcade: 'arcade',
+  advanced: 'advanced',
+  pro: 'pro',
+} as const;
+
 export type plansType = { name: plans; monthly: number; yearly: number; logo: string };
 
 export type timePlan = 'monthly' | 'yearly';
@@ -38,4 +44,4 @@ export type addOns = 'online service' | 'larger storage' | 'customizable profile
 
 export type addOnsType = Array<{ name: addOns; text: string; monthly: number; yearly: number }>;
 
-export type AddOnsData = { name: addOns; number: number };
+export type AddOnsData = { [K in addOns]?: string };

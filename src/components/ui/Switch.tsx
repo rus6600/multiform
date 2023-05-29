@@ -1,4 +1,4 @@
-import React, { ChangeEvent, SetStateAction, useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import { PlanDataType, timePlanEnum } from '../../interfaces';
@@ -14,7 +14,9 @@ export const Switch: React.FC<SwitchProps> = ({ onChange, data }) => {
 
   return (
     <SwitchWrapper>
-      <Text selected={true}>Monthly</Text>
+      <Text selected={formState.planData?.timePlan === timePlanEnum.monthly || data?.timePlan === timePlanEnum.monthly}>
+        Monthly
+      </Text>
       <Label>
         <Input
           type="checkbox"
@@ -23,7 +25,9 @@ export const Switch: React.FC<SwitchProps> = ({ onChange, data }) => {
         />
         <StyledSwitch />
       </Label>
-      <Text selected={false}>Yearly</Text>
+      <Text selected={formState.planData?.timePlan === timePlanEnum.yearly || data?.timePlan === timePlanEnum.yearly}>
+        Yearly
+      </Text>
     </SwitchWrapper>
   );
 };
@@ -88,11 +92,12 @@ const SwitchWrapper = styled('div')`
 
 const Text = styled('p')<{ selected: boolean }>`
   ${({ theme, selected }) => css`
-    color: ${theme.colors.marineBlue};
+    color: ${theme.colors.coolGray};
+
     font-weight: 600;
     ${selected &&
     css`
-      color: ${theme.colors.coolGray};
+      color: ${theme.colors.marineBlue};
     `};
   `}
 `;

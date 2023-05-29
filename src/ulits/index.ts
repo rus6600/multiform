@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { FormContext } from '../provider/context.ts';
-import { FormPageEnum } from '../interfaces/providerinterface.ts';
+import { FormPageEnum } from '../interfaces';
 import { PageSelectPlan } from '../pages/PageSelectPlan.tsx';
 import { PageYourInfo } from '../pages/PageYourInfo.tsx';
 import { PageAddOns } from '../pages/PageAddOns.tsx';
@@ -25,3 +25,5 @@ export const getEntries = <T extends Record<any, any>>(obj: T) => Object.entries
 export const isInArray = <T extends U, U>(arr: ReadonlyArray<T>, el: U): el is T => {
   return arr.includes(el as T);
 };
+
+export const removeKey = <T>(key: keyof T, { [key]: _, ...rest }: T) => rest;

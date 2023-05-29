@@ -14,14 +14,14 @@ export type FormStateType = {
   activePage: pagesEnum;
   formData?: FormDataType;
   planData?: PlanDataType;
-  addOnsData?: Array<AddOnsData>;
+  addOnsData?: AddOnsData;
 };
 
 export type MapPayload = {
   [FormActions.changePage]: pagesEnum;
   [FormActions.setFormData]: FormDataType;
   [FormActions.setPlanData]: PlanDataType;
-  [FormActions.setAddOnsData]: Array<AddOnsData>;
+  [FormActions.setAddOnsData]: AddOnsData;
 };
 
 export type ActionMap<M extends Record<(typeof FormActions)[keyof typeof FormActions], MapPayload[keyof MapPayload]>> =
@@ -43,5 +43,5 @@ export type FormContextType = {
   changePage: (page: pagesEnum) => void;
   setFormData: (formData: FormDataType) => void;
   setPlanData: (planData: PlanDataType) => void;
-  setAddOnsData: (addOnsData: Array<AddOnsData>) => void;
+  setAddOnsData: (addOnsData: AddOnsData) => void;
 };

@@ -4,46 +4,44 @@ import styled, { css } from 'styled-components';
 import { FormContext } from '../provider/context.ts';
 import { Button, ButtonWrapper, Checkbox, PageLayout } from '../components/ui';
 import { AddOnsData, addOnsType, FormPageEnum, timePlanEnum } from '../interfaces';
+import { AlertText } from './PageSelectPlan.tsx';
+import { removeKey } from '../ulits';
 
 export const PageAddOns: React.FC = () => {
   const { changePage, setAddOnsData, formState } = useContext(FormContext);
-  const [data, setData] = useState<Array<AddOnsData>>([]);
+  const [error, setError] = useState<boolean>(false);
   const addOns: addOnsType = [
     { name: 'online service', text: 'Access to multiplayer games', monthly: 1, yearly: 10 },
     { name: 'larger storage', text: 'Extra 1TB of cloud save', monthly: 2, yearly: 20 },
     { name: 'customizable profile', text: 'Custom theme on your profile', monthly: 2, yearly: 20 },
   ];
-  console.log(formState.planData?.timePlan);
+
   const checkHandler = (item: AddOnsData) => {
-    if (data.some((el) => el.name === item.name)) {
-      setData(
-        data.reduce((acc, cur) => {
-          if (cur.name === item.name) return acc;
-          return [...acc, cur];
-        }, [] as Array<AddOnsData>),
-      );
-      return;
+    const key = (Object.keys(item) as Array<keyof AddOnsData>)[0];
+    if (formState.addOnsData && key in formState.addOnsData) {
+      setAddOnsData(removeKey(key, formState.addOnsData));
+    } else {
+      setAddOnsData({ ...formState.addOnsData, ...item });
     }
-    setData([...data, item]);
   };
 
   const clickHandler = () => {
-    if (data.length) {
-      setAddOnsData(data);
+    if (formState.addOnsData) {
       changePage(FormPageEnum.summary);
+      setError(false);
+    } else {
+      setError(true);
     }
   };
 
   return (
     <PageLayout title="Pick add-ons" text="Add-ons help enhance your gaming experience">
+      {error && <AlertText>Please choose one of the following plans</AlertText>}
       <Addons>
         {addOns.map((addOn) => {
-          const checked = data.some((el) => el.name === addOn.name);
+          const checked = formState?.addOnsData && !!formState?.addOnsData[addOn.name];
           return (
-            <Addon
-              key={addOn.name}
-              checked={checked}
-              onClick={() => checkHandler({ name: addOn.name, number: addOn.monthly })}>
+            <Addon key={addOn.name} checked={checked} onClick={() => checkHandler({ [addOn.name]: addOn.monthly })}>
               <Checkbox checked={checked} />
               <Text>
                 <h3>{addOn.name}</h3>
