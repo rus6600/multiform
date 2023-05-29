@@ -34,7 +34,8 @@ export const PageSelectPlan: React.FC = () => {
     if (formState.planData?.timePlan && formState.addOnsData) {
       setAddOnsData({});
     }
-    if (formState.planData?.timePlan && formState.planData?.price) {
+
+    if (val.timePlan && formState.planData?.timePlan && formState.planData?.plan && formState.planData.price) {
       setPlanData({ ...val });
       return;
     }

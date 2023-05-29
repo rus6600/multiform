@@ -11,7 +11,6 @@ export const PageSummary: React.FC = () => {
     formState: { planData, addOnsData },
   } = useContext(FormContext);
   const isMonthlyPlan = planData?.timePlan === timePlanEnum.monthly;
-
   const totalSum = () => {
     return (
       addOnsData &&

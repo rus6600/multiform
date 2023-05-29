@@ -15,13 +15,29 @@ export const Input: React.FC<InputProps> = ({ name, onChange, type, value, error
     );
   };
 
+  const test = () => {
+    if (name === inputEnum.name) {
+      return {
+        pattern: 'd*',
+        inputMode: 'decimal',
+      };
+    }
+  };
+
   return (
     <Label>
       <p>
         {name}
         {error && <span>This field is required</span>}
       </p>
-      <StyledInput type={type} onChange={onChange} value={value} placeholder={getPlaceholder()} error={error} />
+      <StyledInput
+        type={type}
+        onChange={onChange}
+        value={value}
+        placeholder={getPlaceholder()}
+        error={error}
+        {...test}
+      />
     </Label>
   );
 };

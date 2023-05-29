@@ -7,7 +7,6 @@ import { FormContext } from '../provider/context.ts';
 
 export const Buttons: React.FC = () => {
   const { formState, changePage, setErrors } = useContext(FormContext);
-
   const moveForward = () => {
     if (formState.activePage === FormPageEnum.yourInfo) {
       setErrors({
@@ -21,7 +20,13 @@ export const Buttons: React.FC = () => {
           }, [] as Array<inputFieldsType>),
         },
       });
-      if (formState.formData.name && formState.formData.email && formState.formData.number) {
+      if (
+        formState.formData.name &&
+        formState.formData.email &&
+        formState.formData.number &&
+        !formState.errors[FormPageEnum.yourInfo].length
+      ) {
+        setErrors({ ...formState.errors, ...{ [FormPageEnum.yourInfo]: [] } });
         changePage(FormPageEnum.selectPlan);
       }
     }

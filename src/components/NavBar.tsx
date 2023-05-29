@@ -9,7 +9,6 @@ import MOBILE from '../assets/images/bg-sidebar-mobile.svg';
 export const NavBar: React.FC = () => {
   const {
     formState: { activePage },
-    changePage,
   } = React.useContext(FormContext);
 
   const steps: Array<pagesEnum> = ['YOUR INFO', 'SELECT PLAN', 'ADD ONS', 'SUMMARY'];
@@ -18,7 +17,7 @@ export const NavBar: React.FC = () => {
     <Wrapper>
       <List>
         {steps.map((step) => (
-          <ListItem key={step} isSelected={step === activePage} onClick={() => changePage(step)}>
+          <ListItem key={step} isSelected={step === activePage}>
             <p>{step}</p>
           </ListItem>
         ))}
@@ -69,10 +68,6 @@ const ListItem = styled('li')<{ isSelected: boolean }>`
     list-style: none;
     font-weight: 500;
 
-    &:hover {
-      cursor: pointer;
-    }
-
     &:before {
       display: flex;
       position: absolute;
@@ -102,12 +97,6 @@ const ListItem = styled('li')<{ isSelected: boolean }>`
       justify-content: center;
       letter-spacing: 1px;
       text-align: center;
-    }
-
-    &:hover::before {
-      cursor: pointer;
-      color: black;
-      background-color: ${theme.colors.lightBlue};
     }
 
     @media (max-width: 600px) {
