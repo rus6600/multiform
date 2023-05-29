@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { NavBar } from './NavBar.tsx';
 import { Pages } from '../pages';
 
@@ -13,33 +13,33 @@ export const MultiForm: React.FC = () => {
 };
 
 const Wrapper = styled('div')`
-  ${({ theme }) => css`
-    display: grid;
-    padding: 1rem;
-    width: 50%;
-    grid-template-columns: 1fr 2fr;
-    justify-content: space-between;
-    height: 70%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    // background-color: ${theme.colors.white};
-    border-radius: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 70%;
+  padding: 1rem;
+  justify-content: space-between;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 24px rgba(63, 69, 80, 0.12);
+  border-radius: 1rem;
 
-    @media (max-width: 600px) {
-      grid-template-columns: 1fr;
-      width: 100%;
-      padding: 0;
-      height: 100%;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 0;
+    height: 100%;
+    background-color: transparent;
 
-      & > *:nth-child(1) {
-        grid-area: 1/1/3/2;
-      }
-
-      & > *:nth-child(2) {
-        grid-area: 2/1/5/2;
-      }
+    & > *:nth-child(1) {
+      grid-area: 1/1/3/2;
     }
-  `}
+
+    & > *:nth-child(2) {
+      grid-area: 2/1/5/2;
+    }
+  }
 `;

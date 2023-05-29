@@ -61,6 +61,9 @@ export const Buttons: React.FC = () => {
         });
       }
     }
+    if (formState.activePage === FormPageEnum.summary) {
+      changePage(FormPageEnum.exit);
+    }
   };
 
   const moveBackwards = () => {
@@ -70,14 +73,17 @@ export const Buttons: React.FC = () => {
     if (formState.activePage === FormPageEnum.addOns) {
       changePage(FormPageEnum.selectPlan);
     }
+    if (formState.activePage === FormPageEnum.summary) {
+      changePage(FormPageEnum.addOns);
+    }
   };
 
   return (
     <Wrapper>
       {formState.activePage !== FormPageEnum.yourInfo && (
-        <Button text={'Back'} variant={'tertiary'} onClick={moveBackwards}></Button>
+        <Button text={'Go Back'} variant={'tertiary'} onClick={moveBackwards}></Button>
       )}
-      <Button text="next step" onClick={moveForward}></Button>
+      <Button text="Next Step" onClick={moveForward}></Button>
     </Wrapper>
   );
 };
@@ -85,10 +91,10 @@ export const Buttons: React.FC = () => {
 const Wrapper = styled('div')`
   ${({ theme }) => css`
     display: flex;
-    margin-top: auto;
     padding: 1rem;
+    margin-top: auto;
+    border-radius: 1rem;
     justify-content: space-between;
-
     background-color: ${theme.colors.white};
 
     & > *:last-child {
@@ -96,6 +102,7 @@ const Wrapper = styled('div')`
     }
 
     @media (max-width: 600px) {
+      box-shadow: 0 4px 24px rgba(63, 69, 80, 0.12);
     }
   `}
 `;

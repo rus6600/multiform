@@ -22,25 +22,23 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ title, text, children })
   );
 };
 const Wrapper = styled('div')`
-  ${({ theme }) => css`
-    display: flex;
-    padding: 2rem 3rem;
-    height: 100%;
-    flex-direction: column;
-    background-color: transparent;
-    // background-color: ${theme.colors.lightGray};
+  display: flex;
+  padding: 2rem 3rem;
+  height: 100%;
+  flex-direction: column;
 
-    @media (max-width: 600px) {
-      padding: 1rem;
-    }
-  `}
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
 `;
 
 const Background = styled('div')`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     background-color: ${theme.colors.white};
+    border-radius: 1rem;
     @media (max-width: 600px) {
       padding: 2rem;
     }

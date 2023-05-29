@@ -67,6 +67,10 @@ const StyledInput = styled('input')<{ error: boolean }>`
     ::-ms-input-placeholder {
       color: ${theme.colors.lightGray};
     }
+
+    @media (max-width: 600px) {
+      padding: 0.5rem;
+    }
   `}
 `;
 

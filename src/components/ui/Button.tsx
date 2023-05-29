@@ -49,7 +49,8 @@ const StyledButton = styled('button')<{ variant?: ButtonVariants }>`
     }
 
     @media (max-width: 600px) {
-      padding: 0.5rem;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
       min-width: 5rem;
     }
   `}

@@ -83,6 +83,10 @@ const Addon = styled('div')<{ checked?: boolean }>`
     &:hover {
       cursor: pointer;
     }
+
+    @media (max-width: 600px) {
+      gap: 0.5rem;
+    }
   `}
 `;
 
@@ -93,9 +97,25 @@ const Text = styled('div')`
 
     & h3 {
       color: ${theme.colors.marineBlue};
+      &:first-letter {
+        text-transform: capitalize;
+      }
     }
     & p {
       color: ${theme.colors.coolGray};
+      &:first-letter {
+        text-transform: capitalize;
+      }
+    }
+
+    @media (max-width: 600px) {
+      & h3 {
+        font-size: 1rem;
+      }
+      & p {
+        font-size: 14px;
+        line-height: 1;
+      }
     }
   `}
 `;

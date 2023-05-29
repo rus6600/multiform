@@ -42,7 +42,7 @@ export const PageSelectPlan: React.FC = () => {
     setPlanData({ ...formState.planData, ...val });
   };
   return (
-    <PageLayout title="Select your plan" text="You have the option of monthly of yearly billinpg">
+    <PageLayout title="Select your plan" text="You have the option of monthly of yearly billing">
       {formState.errors[FormPageEnum.selectPlan] && <AlertText>Please choose one of the following plans</AlertText>}
       <Cards>
         {plans.map((plan) => {
@@ -80,7 +80,10 @@ const Cards = styled('div')`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 1rem;
-  height: 30%;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Card = styled('div')<{ selected: boolean }>`
@@ -101,6 +104,12 @@ const Card = styled('div')<{ selected: boolean }>`
 
     &:hover {
       cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 1rem;
     }
   `}
 `;
@@ -141,6 +150,7 @@ export const Logo = styled('img')`
 
 export const AlertText = styled('h3')`
   ${({ theme }) => css`
+    margin-bottom: 0.5rem;
     color: ${theme.colors.strawberryRed};
   `}
 `;

@@ -38,7 +38,6 @@ const InputWrapper = styled('div')`
   gap: 1rem;
   justify-content: space-between;
   flex-direction: column;
-  background-color: red;
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
