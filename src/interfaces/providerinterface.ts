@@ -13,14 +13,14 @@ export type pagesEnum = (typeof FormPageEnum)[keyof typeof FormPageEnum];
 export type FormStateType = {
   activePage: pagesEnum;
   formData?: FormDataType;
-  planData?: PlanDataType;
+  planData?: Partial<PlanDataType>;
   addOnsData?: AddOnsData;
 };
 
 export type MapPayload = {
   [FormActions.changePage]: pagesEnum;
   [FormActions.setFormData]: FormDataType;
-  [FormActions.setPlanData]: PlanDataType;
+  [FormActions.setPlanData]: Partial<PlanDataType>;
   [FormActions.setAddOnsData]: AddOnsData;
 };
 
@@ -42,6 +42,6 @@ export type FormContextType = {
   formState: FormStateType;
   changePage: (page: pagesEnum) => void;
   setFormData: (formData: FormDataType) => void;
-  setPlanData: (planData: PlanDataType) => void;
+  setPlanData: (planData: Partial<PlanDataType>) => void;
   setAddOnsData: (addOnsData: AddOnsData) => void;
 };

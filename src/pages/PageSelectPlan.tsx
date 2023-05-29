@@ -10,11 +10,6 @@ import Pro from '../assets/images/icon-pro.svg';
 
 export const PageSelectPlan: React.FC = () => {
   const { changePage, setPlanData, formState } = useContext(FormContext);
-  const [data, setData] = useState<Partial<PlanDataType>>({
-    timePlan: timePlanEnum.monthly,
-    ...(formState.planData?.timePlan && { timePlan: formState.planData.timePlan }),
-    ...(formState.planData?.plan && { plan: formState.planData.plan }),
-  });
   const [error, setError] = useState<boolean>(false);
   const plans: Array<plansType> = [
     {
@@ -38,24 +33,14 @@ export const PageSelectPlan: React.FC = () => {
   ];
 
   const handleChange = (val: Partial<PlanDataType>) => {
-    setData((prevState) => {
-      return {
-        ...prevState,
-        ...val,
-      };
-    });
-    if (formState.planData) {
-      setPlanData({ ...formState.planData, ...val });
-    }
+    setPlanData({ ...formState.planData, ...val });
   };
   const handleClick = () => {
-    if (!formState.planData && (!data.timePlan || !data.plan)) {
-      setError(true);
-      return;
-    } else {
-      setError(false);
-      setPlanData(data as PlanDataType);
+    if (formState.planData && Object.keys(formState.planData).length > 1) {
       changePage(FormPageEnum.addOns);
+      setError(false);
+    } else {
+      setError(true);
     }
   };
   return (
@@ -67,21 +52,23 @@ export const PageSelectPlan: React.FC = () => {
             <Card
               key={plan.name}
               onClick={() => handleChange({ plan: plan.name })}
-              selected={formState.planData?.plan === plan.name || data?.plan === plan.name}>
+              selected={formState.planData?.plan === plan.name}>
               <Logo src={plan.logo}></Logo>
               <CardText>
                 <CardTitle>{plan.name}</CardTitle>
                 <CardDescription>
-                  {data?.timePlan === timePlanEnum.monthly ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
+                  {formState.planData?.timePlan === timePlanEnum.monthly ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
                   <br />
-                  {data?.timePlan === timePlanEnum.yearly && <AdditionalText>2 months free</AdditionalText>}
+                  {formState.planData?.timePlan === timePlanEnum.yearly && (
+                    <AdditionalText>2 months free</AdditionalText>
+                  )}
                 </CardDescription>
               </CardText>
             </Card>
           );
         })}
       </Cards>
-      <Switch data={data} onChange={handleChange} />
+      <Switch data={formState.planData} onChange={handleChange} />
       <ButtonWrapper>
         <Button text={'Go back'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)} />
         <Button text={'Next Step'} onClick={handleClick} />

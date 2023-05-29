@@ -28,7 +28,7 @@ export const PageSummary: React.FC = () => {
         {addOnsData &&
           getEntries(addOnsData).map(([name, value]) => {
             return (
-              <Row>
+              <Row key={name}>
                 <p>{name}</p>
                 <p>{value}</p>
               </Row>

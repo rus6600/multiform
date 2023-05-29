@@ -9,25 +9,23 @@ type SwitchProps = {
   data?: Partial<PlanDataType>;
 };
 
-export const Switch: React.FC<SwitchProps> = ({ onChange, data }) => {
-  const { formState } = useContext(FormContext);
+export const Switch: React.FC<SwitchProps> = ({ onChange }) => {
+  const {
+    formState: { planData },
+  } = useContext(FormContext);
 
   return (
     <SwitchWrapper>
-      <Text selected={formState.planData?.timePlan === timePlanEnum.monthly || data?.timePlan === timePlanEnum.monthly}>
-        Monthly
-      </Text>
+      <Text selected={planData?.timePlan === timePlanEnum.monthly}>Monthly</Text>
       <Label>
         <Input
           type="checkbox"
-          checked={formState.planData?.timePlan === timePlanEnum.yearly || data?.timePlan === timePlanEnum.yearly}
+          checked={planData?.timePlan === timePlanEnum.yearly}
           onChange={(e) => onChange({ timePlan: e.target.checked ? timePlanEnum.yearly : timePlanEnum.monthly })}
         />
         <StyledSwitch />
       </Label>
-      <Text selected={formState.planData?.timePlan === timePlanEnum.yearly || data?.timePlan === timePlanEnum.yearly}>
-        Yearly
-      </Text>
+      <Text selected={planData?.timePlan === timePlanEnum.yearly}>Yearly</Text>
     </SwitchWrapper>
   );
 };
