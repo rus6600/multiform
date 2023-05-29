@@ -45,4 +45,4 @@ export type addOns = 'online service' | 'larger storage' | 'customizable profile
 
 export type addOnsType = Array<{ name: addOns; text: string; monthly: number; yearly: number }>;
 
-export type AddOnsData = { [K in addOns]?: string };
+export type AddOnsData = { [K in addOns]?: number };

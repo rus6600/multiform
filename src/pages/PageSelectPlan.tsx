@@ -147,7 +147,7 @@ const CardDescription = styled('p')`
   `}
 `;
 
-const Logo = styled('img')`
+export const Logo = styled('img')`
   width: 40px;
   object-fit: contain;
   aspect-ratio: 1;

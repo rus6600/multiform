@@ -6,6 +6,7 @@ export const FormPageEnum = {
   selectPlan: 'SELECT PLAN',
   addOns: 'ADD ONS',
   summary: 'SUMMARY',
+  exit: 'EXIT',
 } as const;
 
 export type pagesEnum = (typeof FormPageEnum)[keyof typeof FormPageEnum];
