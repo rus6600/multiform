@@ -1,18 +1,27 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { inputEnum } from '../../interfaces';
 
 interface InputProps extends React.ComponentProps<'input'> {
   error: boolean;
 }
 
-export const Input: React.FC<InputProps> = ({ name, onChange, type, value, placeholder, error }) => {
+export const Input: React.FC<InputProps> = ({ name, onChange, type, value, error }) => {
+  const getPlaceholder = () => {
+    return (
+      (name === inputEnum.name && 'e.g Stephen King') ||
+      (inputEnum.email && 'e.g stephenking@lorem.com') ||
+      (inputEnum.number && 'e.g + 1 234 567 890')
+    );
+  };
+
   return (
     <Label>
       <p>
         {name}
         {error && <span>This field is required</span>}
       </p>
-      <StyledInput type={type ?? 'text'} onChange={onChange} value={value} placeholder={placeholder} error={error} />
+      <StyledInput type={type} onChange={onChange} value={value} placeholder={getPlaceholder()} error={error} />
     </Label>
   );
 };
@@ -47,6 +56,7 @@ const StyledInput = styled('input')<{ error: boolean }>`
 
     ::placeholder {
       color: ${theme.colors.lightGray};
+      font-weight: 600;
       opacity: 1;
     }
 

@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import { ButtonVariants } from '../../interfaces';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
-  text: string;
-  onClick: () => void;
+  text?: string;
+  onClick?: () => void;
   variant?: ButtonVariants;
 }
 
@@ -47,11 +47,10 @@ const StyledButton = styled('button')<{ variant?: ButtonVariants }>`
       opacity: 0.7;
       cursor: pointer;
     }
-  `}
-`;
 
-export const ButtonWrapper = styled('div')`
-  display: flex;
-  margin-top: auto;
-  justify-content: space-between;
+    @media (max-width: 600px) {
+      padding: 0.5rem;
+      min-width: 5rem;
+    }
+  `}
 `;

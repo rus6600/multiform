@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled, { css } from 'styled-components';
 import { BasePageProps } from '../../interfaces';
+import { Buttons } from '../Buttons.tsx';
 
 interface PageLayoutProps extends BasePageProps {
   title: string;
@@ -11,18 +12,39 @@ interface PageLayoutProps extends BasePageProps {
 export const PageLayout: React.FC<PageLayoutProps> = ({ title, text, children }) => {
   return (
     <Wrapper>
-      <Title>{title}</Title>
-      <Text>{text}</Text>
-      {children}
+      <Background>
+        <Title>{title}</Title>
+        <Text>{text}</Text>
+        {children}
+      </Background>
+      <Buttons />
     </Wrapper>
   );
 };
 const Wrapper = styled('div')`
-  display: flex;
-  padding: 1rem 3rem;
-  height: 100%;
-  gap: 1rem;
-  flex-direction: column;
+  ${({ theme }) => css`
+    display: flex;
+    padding: 2rem 3rem;
+    height: 100%;
+    flex-direction: column;
+    background-color: transparent;
+    // background-color: ${theme.colors.lightGray};
+
+    @media (max-width: 600px) {
+      padding: 1rem;
+    }
+  `}
+`;
+
+const Background = styled('div')`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    background-color: ${theme.colors.white};
+    @media (max-width: 600px) {
+      padding: 2rem;
+    }
+  `}
 `;
 
 const Title = styled('h1')`
@@ -35,5 +57,6 @@ const Title = styled('h1')`
 const Text = styled('p')`
   ${({ theme }) => css`
     color: ${theme.colors.coolGray};
+    margin-bottom: 2rem;
   `}
 `;

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { FormContext } from '../provider/context.ts';
-import { Button, ButtonWrapper, PageLayout } from '../components/ui';
+import { PageLayout } from '../components/ui';
 import { FormPageEnum, timePlanEnum } from '../interfaces';
-import { getEntries } from '../ulits';
+import { getEntries } from '../helpers';
 
 export const PageSummary: React.FC = () => {
   const {
@@ -56,10 +56,6 @@ export const PageSummary: React.FC = () => {
           )}
         </Row>
       </Table>
-      <ButtonWrapper>
-        <Button variant="tertiary" text="Go back" onClick={() => changePage(FormPageEnum.addOns)} />
-        <Button variant="secondary" text="Confirm" onClick={() => changePage(FormPageEnum.exit)} />
-      </ButtonWrapper>
     </PageLayout>
   );
 };

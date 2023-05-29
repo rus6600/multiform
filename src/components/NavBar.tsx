@@ -1,9 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import SVG from '../assets/images/bg-sidebar-desktop.svg';
 import { FormContext } from '../provider/context.ts';
-import { pagesEnum } from '../interfaces/providerinterface.ts';
+import { pagesEnum } from '../interfaces';
+import DESKTOP from '../assets/images/bg-sidebar-desktop.svg';
+import MOBILE from '../assets/images/bg-sidebar-mobile.svg';
 
 export const NavBar: React.FC = () => {
   const {
@@ -18,7 +19,7 @@ export const NavBar: React.FC = () => {
       <List>
         {steps.map((step) => (
           <ListItem key={step} isSelected={step === activePage} onClick={() => changePage(step)}>
-            {step}
+            <p>{step}</p>
           </ListItem>
         ))}
       </List>
@@ -27,17 +28,35 @@ export const NavBar: React.FC = () => {
 };
 
 const Wrapper = styled('div')`
-  padding: 2rem;
-  background-image: url(${SVG});
+  display: flex;
+  padding: 3rem;
+  background-image: url(${DESKTOP});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
+
+  @media (max-width: 600px) {
+    padding: 0;
+    justify-content: center;
+    width: 100%;
+    background-size: cover;
+    background-image: url(${MOBILE});
+  }
 `;
 
 const List = styled('ul')`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
+
   counter-reset: list;
+
+  @media (max-width: 600px) {
+    padding: 0;
+    width: 50%;
+    margin-inline: 0;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const ListItem = styled('li')<{ isSelected: boolean }>`
@@ -88,6 +107,22 @@ const ListItem = styled('li')<{ isSelected: boolean }>`
       cursor: pointer;
       color: black;
       background-color: ${theme.colors.lightBlue};
+    }
+
+    @media (max-width: 600px) {
+      & p {
+        display: none;
+      }
+
+      &:before {
+        inset: 0;
+        left: -20px;
+      }
+
+      &:after {
+        display: none;
+        content: '';
+      }
     }
 
     ${isSelected &&

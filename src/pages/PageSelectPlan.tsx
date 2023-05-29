@@ -1,16 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import { FormContext } from '../provider/context.ts';
-import { Button, ButtonWrapper, PageLayout, Switch } from '../components/ui';
+import { PageLayout, Switch } from '../components/ui';
 import { FormPageEnum, PlanDataType, plansEnum, plansType, timePlanEnum } from '../interfaces';
 import Arcade from '../assets/images/icon-arcade.svg';
 import Advanced from '../assets/images/icon-advanced.svg';
 import Pro from '../assets/images/icon-pro.svg';
 
 export const PageSelectPlan: React.FC = () => {
-  const { formState, changePage, setPlanData, setAddOnsData } = useContext(FormContext);
-  const [error, setError] = useState<boolean>(false);
+  const { formState, setPlanData, setAddOnsData } = useContext(FormContext);
   const plans: Array<plansType> = [
     {
       name: plansEnum.arcade,
@@ -31,7 +30,6 @@ export const PageSelectPlan: React.FC = () => {
       logo: Pro,
     },
   ];
-
   const handleChange = (val: Partial<PlanDataType>) => {
     if (formState.planData?.timePlan && formState.addOnsData) {
       setAddOnsData({});
@@ -43,17 +41,9 @@ export const PageSelectPlan: React.FC = () => {
 
     setPlanData({ ...formState.planData, ...val });
   };
-  const handleClick = () => {
-    if (formState.planData && Object.keys(formState.planData).length > 1) {
-      changePage(FormPageEnum.addOns);
-      setError(false);
-    } else {
-      setError(true);
-    }
-  };
   return (
     <PageLayout title="Select your plan" text="You have the option of monthly of yearly billinpg">
-      {error && <AlertText>Please choose one of the following plans</AlertText>}
+      {formState.errors[FormPageEnum.selectPlan] && <AlertText>Please choose one of the following plans</AlertText>}
       <Cards>
         {plans.map((plan) => {
           const isMonthTimePlan = formState.planData?.timePlan === timePlanEnum.monthly;
@@ -81,10 +71,6 @@ export const PageSelectPlan: React.FC = () => {
         })}
       </Cards>
       <Switch data={formState.planData} onChange={handleChange} />
-      <ButtonWrapper>
-        <Button text={'Go back'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)} />
-        <Button text={'Next Step'} onClick={handleClick} />
-      </ButtonWrapper>
     </PageLayout>
   );
 };

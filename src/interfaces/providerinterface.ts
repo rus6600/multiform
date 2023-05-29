@@ -1,5 +1,5 @@
 import { FormActions } from '../provider/actions.ts';
-import { AddOnsData, FormDataType, PlanDataType } from './componentsProps.ts';
+import { AddOnsData, FormDataType, inputFieldsType, PlanDataType } from './componentsProps.ts';
 
 export const FormPageEnum = {
   yourInfo: 'YOUR INFO',
@@ -11,11 +11,18 @@ export const FormPageEnum = {
 
 export type pagesEnum = (typeof FormPageEnum)[keyof typeof FormPageEnum];
 
+type ErrorsType = {
+  [FormPageEnum.yourInfo]: Array<inputFieldsType>;
+  [FormPageEnum.selectPlan]: boolean;
+  [FormPageEnum.addOns]: boolean;
+};
+
 export type FormStateType = {
   activePage: pagesEnum;
-  formData?: FormDataType;
+  formData: FormDataType;
   planData?: Partial<PlanDataType>;
   addOnsData?: AddOnsData;
+  errors: ErrorsType;
 };
 
 export type MapPayload = {
@@ -23,6 +30,7 @@ export type MapPayload = {
   [FormActions.setFormData]: FormDataType;
   [FormActions.setPlanData]: Partial<PlanDataType>;
   [FormActions.setAddOnsData]: AddOnsData;
+  [FormActions.setErrors]: ErrorsType;
 };
 
 export type ActionMap<M extends Record<(typeof FormActions)[keyof typeof FormActions], MapPayload[keyof MapPayload]>> =
@@ -45,4 +53,5 @@ export type FormContextType = {
   setFormData: (formData: FormDataType) => void;
   setPlanData: (planData: Partial<PlanDataType>) => void;
   setAddOnsData: (addOnsData: AddOnsData) => void;
+  setErrors: (errors: ErrorsType) => void;
 };

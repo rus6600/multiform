@@ -19,12 +19,27 @@ const Wrapper = styled('div')`
     width: 50%;
     grid-template-columns: 1fr 2fr;
     justify-content: space-between;
-    height: 60%;
+    height: 70%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: ${theme.colors.white};
+    // background-color: ${theme.colors.white};
     border-radius: 1rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      width: 100%;
+      padding: 0;
+      height: 100%;
+
+      & > *:nth-child(1) {
+        grid-area: 1/1/3/2;
+      }
+
+      & > *:nth-child(2) {
+        grid-area: 2/1/5/2;
+      }
+    }
   `}
 `;

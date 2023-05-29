@@ -1,16 +1,6 @@
 import React, { createElement } from 'react';
-import styled, { css } from 'styled-components';
-
-import { usePageSelect } from '../ulits';
+import { usePageSelect } from '../hooks';
 
 export const Pages: React.FC = () => {
-  return <PageWrapper>{createElement(usePageSelect())}</PageWrapper>;
+  return <>{createElement(usePageSelect())}</>;
 };
-
-const PageWrapper = styled('div')`
-  ${({ theme }) => css`
-    width: 100%;
-    background-color: ${theme.colors.white};
-    border-radius: 1rem;
-  `}
-`;

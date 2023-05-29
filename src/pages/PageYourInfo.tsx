@@ -1,81 +1,44 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { Button, Input, PageLayout } from '../components/ui';
-import { FormDataType, inputEnum, inputFieldsType, inputsType } from '../interfaces';
-import { getEntries, isInArray } from '../ulits';
+import { Input, PageLayout } from '../components/ui';
+import { inputEnum, inputsType } from '../interfaces';
 import { FormContext } from '../provider/context.ts';
 import { FormPageEnum } from '../interfaces';
+import { isInArray } from '../helpers';
 
 export const PageYourInfo: React.FC = () => {
-  const { changePage, setFormData, formState } = useContext(FormContext);
+  const { formState, setFormData } = useContext(FormContext);
 
-  const [formData, addFormData] = useState<FormDataType>({
-    name: '',
-    email: '',
-    number: '',
-  });
-  const [errors, setErrors] = useState<Array<inputFieldsType>>([]);
-
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    const { name, email, number } = formData;
-    if (!formState.formData && (!name || !email || !number)) {
-      setErrors(
-        getEntries(formData).reduce((previousValue, [name, value]) => {
-          if (!value) return [...previousValue, name];
-          return previousValue;
-        }, [] as Array<inputFieldsType>),
-      );
-      return;
-    } else {
-      setErrors([]);
-      !formState.formData && setFormData(formData);
-      changePage(FormPageEnum.selectPlan);
-    }
-  };
-
-  const inputHandler = (inputData: { type: (typeof inputEnum)[keyof typeof inputEnum]; value: string }) => {
-    const { type, value } = inputData;
-    addFormData((prevState) => {
-      return {
-        ...prevState,
-        ...{ [type]: value },
-      };
-    });
+  const inputHandler = ({ type, value }: { type: (typeof inputEnum)[keyof typeof inputEnum]; value: string }) => {
+    setFormData({ ...formState.formData, [type]: value });
   };
 
   return (
     <PageLayout title="Personal info" text="Please provide your name, email address, and phone number">
-      <Form onSubmit={submitHandler}>
+      <InputWrapper>
         {(Object.keys(inputEnum) as Array<inputsType>).map((type) => (
           <Input
             key={type}
             name={type}
-            value={(formState.formData && formState.formData[type]) || formData[type]}
+            type={type}
+            value={formState.formData && formState.formData[type]}
             placeholder={`enter your ${type}`}
-            error={isInArray(errors, inputEnum[type])}
+            error={isInArray(formState.errors[FormPageEnum.yourInfo], type)}
             onChange={(e) => inputHandler({ type, value: e.target.value })}
           />
         ))}
-        <Button text={'Next Step'} type="submit" />
-      </Form>
+      </InputWrapper>
     </PageLayout>
   );
 };
 
-const Form = styled('form')`
+const InputWrapper = styled('div')`
   display: flex;
-  flex-grow: 1;
-  margin-top: 2rem;
+  gap: 1rem;
   justify-content: space-between;
   flex-direction: column;
-  gap: 1rem;
-
-  & > *:last-child {
-    margin-top: auto;
-    margin-left: auto;
-  }
+  background-color: red;
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

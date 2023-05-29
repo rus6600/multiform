@@ -3,7 +3,13 @@ import { FilterActions, FormPageEnum, FormStateType, timePlanEnum } from '../int
 
 export const FormState: FormStateType = {
   activePage: FormPageEnum.yourInfo,
+  formData: { name: '', email: '', number: '' },
   planData: { timePlan: timePlanEnum.monthly },
+  errors: {
+    [FormPageEnum.yourInfo]: [],
+    [FormPageEnum.selectPlan]: false,
+    [FormPageEnum.addOns]: false,
+  },
 };
 
 export const FormReducer = (FormState: FormStateType, action: FilterActions): FormStateType => {
@@ -28,6 +34,11 @@ export const FormReducer = (FormState: FormStateType, action: FilterActions): Fo
       return {
         ...FormState,
         addOnsData: payload,
+      };
+    case FormActions.setErrors:
+      return {
+        ...FormState,
+        errors: payload,
       };
     default:
       return FormState;
