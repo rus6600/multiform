@@ -26,7 +26,7 @@ export const PageAddOns: React.FC = () => {
   };
 
   const clickHandler = () => {
-    if (formState.addOnsData) {
+    if (formState.addOnsData && Object.keys(formState.addOnsData).length > 0) {
       changePage(FormPageEnum.summary);
       setError(false);
     } else {
