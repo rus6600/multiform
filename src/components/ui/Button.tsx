@@ -19,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({ text, variant = 'primary', onCli
 const StyledButton = styled('button')<{ variant?: ButtonVariants }>`
   ${({ theme, variant }) => css`
     max-width: fit-content;
+    min-width: 180px;
     border-radius: 0.5rem;
     border: none;
     font-weight: 600;
