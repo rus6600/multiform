@@ -41,7 +41,14 @@ export const PageAddOns: React.FC = () => {
         {addOns.map((addOn) => {
           const checked = formState?.addOnsData && !!formState?.addOnsData[addOn.name];
           return (
-            <Addon key={addOn.name} checked={checked} onClick={() => checkHandler({ [addOn.name]: addOn.monthly })}>
+            <Addon
+              key={addOn.name}
+              checked={checked}
+              onClick={() =>
+                checkHandler({
+                  [addOn.name]: formState.planData?.timePlan === timePlanEnum.monthly ? addOn.monthly : addOn.yearly,
+                })
+              }>
               <Checkbox checked={checked} />
               <Text>
                 <h3>{addOn.name}</h3>

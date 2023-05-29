@@ -9,7 +9,7 @@ import Advanced from '../assets/images/icon-advanced.svg';
 import Pro from '../assets/images/icon-pro.svg';
 
 export const PageSelectPlan: React.FC = () => {
-  const { changePage, setPlanData, formState } = useContext(FormContext);
+  const { formState, changePage, setPlanData, setAddOnsData } = useContext(FormContext);
   const [error, setError] = useState<boolean>(false);
   const plans: Array<plansType> = [
     {
@@ -33,6 +33,9 @@ export const PageSelectPlan: React.FC = () => {
   ];
 
   const handleChange = (val: Partial<PlanDataType>) => {
+    if (formState.planData?.timePlan && formState.addOnsData) {
+      setAddOnsData({});
+    }
     setPlanData({ ...formState.planData, ...val });
   };
   const handleClick = () => {
