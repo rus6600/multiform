@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 
-export const Checkbox: React.FC = () => {
-  const [checked, setChecked] = useState<boolean>(true);
-  const handleClick = () => {
-    setChecked(!checked);
-  };
+type CheckBoxProps = {
+  checked?: boolean;
+};
 
+export const Checkbox: React.FC<CheckBoxProps> = ({ checked }) => {
   return (
-    <CheckboxContainer onClick={handleClick}>
-      <HiddenCheckbox checked={checked} />
+    <CheckboxContainer>
+      <HiddenCheckbox readOnly checked={checked} />
       <StyledCheckbox checked={checked}>
         <Icon viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
@@ -37,7 +36,7 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `;
 
-const StyledCheckbox = styled('div')<{ checked: boolean }>`
+const StyledCheckbox = styled('div')<{ checked?: boolean }>`
   ${({ theme, checked }) => css`
     display: inline-block;
     width: 20px;

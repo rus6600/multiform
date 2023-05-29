@@ -11,5 +11,6 @@ export const GetFormContext = (formState: FormStateType, dispatch: React.Dispatc
     changePage: (payload) => dispatch({ type: FormActions.changePage, payload }),
     setFormData: (payload) => dispatch({ type: FormActions.setFormData, payload }),
     setPlanData: (payload) => dispatch({ type: FormActions.setPlanData, payload }),
+    setAddOnsData: (payload) => dispatch({ type: FormActions.setAddOnsData, payload }),
   };
 };

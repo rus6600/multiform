@@ -5,7 +5,7 @@ import { Button, Input, PageLayout } from '../components/ui';
 import { FormDataType, inputEnum, inputFieldsType, inputsType } from '../interfaces';
 import { getEntries, isInArray } from '../ulits';
 import { FormContext } from '../provider/context.ts';
-import { FormPageEnum } from '../interfaces/providerinterface.ts';
+import { FormPageEnum } from '../interfaces';
 
 export const PageYourInfo: React.FC = () => {
   const { changePage, setFormData, formState } = useContext(FormContext);

@@ -30,8 +30,12 @@ export const timePlanEnum: Record<timePlan, timePlan> = {
 };
 
 export type PlanDataType = {
-  timePlan: timePlan;
   plan: plans;
+  timePlan: timePlan;
 };
 
-export type addOnsType = Array<{ name: string; text: string; monthly: number; yearly: number }>;
+export type addOns = 'online service' | 'larger storage' | 'customizable profile';
+
+export type addOnsType = Array<{ name: addOns; text: string; monthly: number; yearly: number }>;
+
+export type AddOnsData = { name: addOns; number: number };

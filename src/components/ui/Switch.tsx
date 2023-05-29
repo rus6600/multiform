@@ -1,26 +1,30 @@
-import React, { ChangeEvent, SetStateAction } from 'react';
+import React, { ChangeEvent, SetStateAction, useContext, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { PlanDataType, timePlanEnum } from '../../interfaces';
+import { FormContext } from '../../provider/context.ts';
+
 type SwitchProps = {
-  on: string;
-  off: string;
-  setChecked: React.Dispatch<SetStateAction<any>>;
+  onChange: (val: Partial<PlanDataType>) => void;
+  data?: Partial<PlanDataType>;
 };
 
-export const Switch: React.FC<SwitchProps> = ({ on, off, setChecked }) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checked) {
-      setChecked(on);
-    } else {
-      setChecked(off);
-    }
-  };
+export const Switch: React.FC<SwitchProps> = ({ onChange, data }) => {
+  const { formState } = useContext(FormContext);
 
   return (
-    <Label>
-      <Input type="checkbox" onChange={handleChange} />
-      <StyledSwitch />
-    </Label>
+    <SwitchWrapper>
+      <Text selected={true}>Monthly</Text>
+      <Label>
+        <Input
+          type="checkbox"
+          checked={formState.planData?.timePlan === timePlanEnum.yearly || data?.timePlan === timePlanEnum.yearly}
+          onChange={(e) => onChange({ timePlan: e.target.checked ? timePlanEnum.yearly : timePlanEnum.monthly })}
+        />
+        <StyledSwitch />
+      </Label>
+      <Text selected={false}>Yearly</Text>
+    </SwitchWrapper>
   );
 };
 
@@ -68,5 +72,27 @@ const Input = styled('input')`
         transform: translate(32px, -50%);
       }
     }
+  `}
+`;
+
+const SwitchWrapper = styled('div')`
+  ${({ theme }) => css`
+    display: flex;
+    padding-block: 0.5rem;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    background-color: ${theme.colors.alabaster};
+  `}
+`;
+
+const Text = styled('p')<{ selected: boolean }>`
+  ${({ theme, selected }) => css`
+    color: ${theme.colors.marineBlue};
+    font-weight: 600;
+    ${selected &&
+    css`
+      color: ${theme.colors.coolGray};
+    `};
   `}
 `;

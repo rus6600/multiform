@@ -31,6 +31,7 @@ const StyledButton = styled('button')<{ variant?: ButtonVariants }>`
       background-color: ${theme.colors.white};
       color: ${theme.colors.coolGray};
       &:hover {
+        color: ${theme.colors.marineBlue};
         outline: 1px solid ${theme.colors.coolGray};
       }
     `}

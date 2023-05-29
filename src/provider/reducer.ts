@@ -6,21 +6,27 @@ export const FormState: FormStateType = {
 };
 
 export const FormReducer = (FormState: FormStateType, action: FilterActions): FormStateType => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case FormActions.changePage:
       return {
         ...FormState,
-        activePage: action.payload,
+        activePage: payload,
       };
     case FormActions.setFormData:
       return {
         ...FormState,
-        formData: action.payload,
+        formData: payload,
       };
     case FormActions.setPlanData:
       return {
         ...FormState,
-        planData: action.payload,
+        planData: payload,
+      };
+    case FormActions.setAddOnsData:
+      return {
+        ...FormState,
+        addOnsData: payload,
       };
     default:
       return FormState;

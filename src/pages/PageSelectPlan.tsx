@@ -3,14 +3,18 @@ import styled, { css } from 'styled-components';
 
 import { FormContext } from '../provider/context.ts';
 import { Button, ButtonWrapper, PageLayout, Switch } from '../components/ui';
-import { FormPageEnum, plansType, timePlan, timePlanEnum } from '../interfaces';
+import { FormPageEnum, PlanDataType, plansType, timePlanEnum } from '../interfaces';
 import Arcade from '../assets/images/icon-arcade.svg';
 import Advanced from '../assets/images/icon-advanced.svg';
 import Pro from '../assets/images/icon-pro.svg';
 
 export const PageSelectPlan: React.FC = () => {
   const { changePage, setPlanData, formState } = useContext(FormContext);
-  const [planType, setPlanType] = useState<timePlan>(timePlanEnum.monthly);
+  const [data, setData] = useState<Partial<PlanDataType>>({
+    timePlan: timePlanEnum.monthly,
+    ...(formState.planData?.timePlan && { timePlan: formState.planData.timePlan }),
+    ...(formState.planData?.plan && { plan: formState.planData.plan }),
+  });
   const [error, setError] = useState<boolean>(false);
   const plans: Array<plansType> = [
     {
@@ -33,16 +37,28 @@ export const PageSelectPlan: React.FC = () => {
     },
   ];
 
+  const handleChange = (val: Partial<PlanDataType>) => {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        ...val,
+      };
+    });
+    if (formState.planData) {
+      setPlanData({ ...formState.planData, ...val });
+    }
+  };
   const handleClick = () => {
-    if (!formState.planData) {
+    if (!formState.planData && (!data.timePlan || !data.plan)) {
+      alert('burr');
       setError(true);
       return;
     } else {
       setError(false);
+      setPlanData(data as PlanDataType);
       changePage(FormPageEnum.addOns);
     }
   };
-
   return (
     <PageLayout title="Select your plan" text="You have the option of monthly of yearly billinpg">
       {error && <AlertText>Please choose one of the following plans</AlertText>}
@@ -51,29 +67,25 @@ export const PageSelectPlan: React.FC = () => {
           return (
             <Card
               key={plan.name}
-              onClick={() => setPlanData({ timePlan: planType, plan: plan.name })}
-              selected={formState.planData?.plan === plan.name}>
+              onClick={() => handleChange({ plan: plan.name })}
+              selected={formState.planData?.plan === plan.name || data?.plan === plan.name}>
               <Logo src={plan.logo}></Logo>
               <CardText>
                 <CardTitle>{plan.name}</CardTitle>
                 <CardDescription>
-                  {planType === timePlanEnum.monthly ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
-                  {planType === timePlanEnum.yearly && <AdditionalText>2 months free</AdditionalText>}
+                  {data?.timePlan === timePlanEnum.monthly ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
+                  <br />
+                  {data?.timePlan === timePlanEnum.yearly && <AdditionalText>2 months free</AdditionalText>}
                 </CardDescription>
               </CardText>
             </Card>
           );
         })}
       </Cards>
-      <SwitchWrapper>
-        <SwitchLabel selected={true}>Monthly</SwitchLabel>
-        <Switch on={timePlanEnum.monthly} off={timePlanEnum.yearly} setChecked={setPlanType} />
-        <SwitchLabel selected={false}>Yearly</SwitchLabel>
-      </SwitchWrapper>
+      <Switch data={data} onChange={handleChange} />
       <ButtonWrapper>
-        <Button text={'Go back'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)}></Button>
-
-        <Button text={'Next Step'} onClick={handleClick}></Button>
+        <Button text={'Go back'} variant={'tertiary'} onClick={() => changePage(FormPageEnum.yourInfo)} />
+        <Button text={'Next Step'} onClick={handleClick} />
       </ButtonWrapper>
     </PageLayout>
   );
@@ -83,7 +95,8 @@ const Cards = styled('div')`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  justify-content: space-between;
+  margin-bottom: 1rem;
+  height: 30%;
 `;
 
 const Card = styled('div')<{ selected: boolean }>`
@@ -94,7 +107,7 @@ const Card = styled('div')<{ selected: boolean }>`
     border: 1px solid ${theme.colors.lightGray};
     border-radius: 0.5rem;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
     justify-content: space-between;
 
     ${selected &&
@@ -140,28 +153,6 @@ const Logo = styled('img')`
   width: 40px;
   object-fit: contain;
   aspect-ratio: 1;
-`;
-
-const SwitchWrapper = styled('div')`
-  ${({ theme }) => css`
-    display: flex;
-    padding-block: 0.5rem;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
-    background-color: ${theme.colors.alabaster};
-  `}
-`;
-
-const SwitchLabel = styled('p')<{ selected: boolean }>`
-  ${({ theme, selected }) => css`
-    color: ${theme.colors.marineBlue};
-    font-weight: 600;
-    ${selected &&
-    css`
-      color: ${theme.colors.coolGray};
-    `};
-  `}
 `;
 
 const AlertText = styled('h3')`

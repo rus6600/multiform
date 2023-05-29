@@ -1,5 +1,5 @@
 import { FormActions } from '../provider/actions.ts';
-import { FormDataType, PlanDataType } from './componentsProps.ts';
+import { AddOnsData, FormDataType, PlanDataType } from './componentsProps.ts';
 
 export const FormPageEnum = {
   yourInfo: 'YOUR INFO',
@@ -14,12 +14,14 @@ export type FormStateType = {
   activePage: pagesEnum;
   formData?: FormDataType;
   planData?: PlanDataType;
+  addOnsData?: Array<AddOnsData>;
 };
 
 export type MapPayload = {
   [FormActions.changePage]: pagesEnum;
   [FormActions.setFormData]: FormDataType;
   [FormActions.setPlanData]: PlanDataType;
+  [FormActions.setAddOnsData]: Array<AddOnsData>;
 };
 
 export type ActionMap<M extends Record<(typeof FormActions)[keyof typeof FormActions], MapPayload[keyof MapPayload]>> =
@@ -41,4 +43,5 @@ export type FormContextType = {
   changePage: (page: pagesEnum) => void;
   setFormData: (formData: FormDataType) => void;
   setPlanData: (planData: PlanDataType) => void;
+  setAddOnsData: (addOnsData: Array<AddOnsData>) => void;
 };
