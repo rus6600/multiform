@@ -38,7 +38,7 @@ export const timePlanEnum: Record<timePlan, timePlan> = {
 export type PlanDataType = {
   plan: plans;
   timePlan: timePlan;
-  price: string;
+  price: number;
 };
 
 export type addOns = 'online service' | 'larger storage' | 'customizable profile';

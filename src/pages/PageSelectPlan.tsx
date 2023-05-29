@@ -36,6 +36,11 @@ export const PageSelectPlan: React.FC = () => {
     if (formState.planData?.timePlan && formState.addOnsData) {
       setAddOnsData({});
     }
+    if (formState.planData?.timePlan && formState.planData?.price) {
+      setPlanData({ ...val });
+      return;
+    }
+
     setPlanData({ ...formState.planData, ...val });
   };
   const handleClick = () => {
@@ -51,20 +56,24 @@ export const PageSelectPlan: React.FC = () => {
       {error && <AlertText>Please choose one of the following plans</AlertText>}
       <Cards>
         {plans.map((plan) => {
+          const isMonthTimePlan = formState.planData?.timePlan === timePlanEnum.monthly;
           return (
             <Card
               key={plan.name}
-              onClick={() => handleChange({ plan: plan.name })}
+              onClick={() =>
+                handleChange({
+                  plan: plan.name,
+                  price: isMonthTimePlan ? plan.monthly : plan.yearly,
+                })
+              }
               selected={formState.planData?.plan === plan.name}>
               <Logo src={plan.logo}></Logo>
               <CardText>
                 <CardTitle>{plan.name}</CardTitle>
                 <CardDescription>
-                  {formState.planData?.timePlan === timePlanEnum.monthly ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
+                  {isMonthTimePlan ? `$${plan.monthly}/mo` : `$${plan.yearly}/y`}
                   <br />
-                  {formState.planData?.timePlan === timePlanEnum.yearly && (
-                    <AdditionalText>2 months free</AdditionalText>
-                  )}
+                  {!isMonthTimePlan && <AdditionalText>2 months free</AdditionalText>}
                 </CardDescription>
               </CardText>
             </Card>

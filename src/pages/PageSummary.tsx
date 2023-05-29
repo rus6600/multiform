@@ -14,7 +14,7 @@ export const PageSummary: React.FC = () => {
   const clickHandler = () => {
     changePage(FormPageEnum.addOns);
   };
-  console.log(addOnsData);
+  console.log(planData);
   return (
     <PageLayout title="Finishing up" text="Double-check everything look OK before confirming">
       <Table>
